@@ -1,0 +1,15 @@
+h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-style: oblique;
+}
+.image-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+}
+.card{
+    width: 120px;
+    flex-wrap: wrap;
+    height: 150px;
+}
