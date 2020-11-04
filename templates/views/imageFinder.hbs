@@ -1,0 +1,16 @@
+
+{{>header}}
+    <form>    
+        <input placeholder="Search...">
+        <button>Search</button>
+    </form>
+    
+    <div class="image-container">
+        {{#each imageSrc}}
+        <div class="card">
+            <p>{{this.description}}</p>
+            <img src="{{this.image}}" alt="" width="100px">
+        </div>
+        {{/each}}
+    </div>    
+{{>footer}}

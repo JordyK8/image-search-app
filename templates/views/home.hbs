@@ -1,26 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-    <h1>Find your image fast</h1>
-    <form>
-        <input placeholder="Search...">
-        <button>Search</button>
-    </form>
-    
-    <div class="image-container">
-        {{#each imageSrc}}
-        <div class="card">
-            <p>{{this.description}}</p>
-            <img src="{{this.image}}" alt="" width="100px">
-        </div>
-        
-        {{/each}}
-    </div>    
-</body>
-</html>
+
+{{>header}}
+{{>footer}}
