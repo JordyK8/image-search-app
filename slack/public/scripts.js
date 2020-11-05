@@ -1,32 +1,29 @@
-const username = prompt("What is your username?")
-// const socket = io('http://localhost:9000'); // the / namespace/endpoint
-const socket = io('http://localhost:9000',{
-    query: {
-        username
+const socket = io('http://localhost:3000')
+const socket2 = io('http://localhost:3000/admin') //Admin namespace
+socket.on('connect', () => {
+    console.log(socket.id); 
+})
+socket.on('messageFromServer', (dataFromServer) => {
+    console.log(dataFromServer);
+    socket.emit('messageToServer', {data: 'This is from client'})
+})
+document.querySelector('#message-form').addEventListener('submit', (e) => {
+    e.preventDefault()
+    let newMessage = document.querySelector('#user-message').value
+    if(newMessage.replace(/\s+/g, '') != ''){
+    socket.emit('newMessageToServer', {text: newMessage})
+    document.querySelector('#user-message').value = ''
     }
-});
-let nsSocket = "";
-// listen for nsList, which is a list of all the namespaces.
-socket.on('nsList',(nsData)=>{
-    console.log("The list of .rooms has arrived!!")
-    // console.log(nsData)
-    let namespacesDiv = document.querySelector('.namespaces');
-    namespacesDiv.innerHTML = "";
-    nsData.forEach((ns)=>{
-        namespacesDiv.innerHTML += `<div class="namespace" ns=${ns.endpoint} ><img src="${ns.img}" /></div>`
-    })
-
-    // Add a clicklistener for each NS
-    console.log(document.getElementsByClassName('namespace'))
-    Array.from(document.getElementsByClassName('namespace')).forEach((elem)=>{
-        // console.log(elem)
-        elem.addEventListener('click',(e)=>{
-            const nsEndpoint = elem.getAttribute('ns');
-            // console.log(`${nsEndpoint} I should go to now`)
-            joinNs(nsEndpoint)
-        })
-    })
-    joinNs('/wiki');
+})
+socket.on('messageToClient', (msg) => {
+    console.log(msg);
+    document.querySelector('#messages').innerHTML += `<li>${msg.text}</li>`
 })
 
+socket2.on('connect', () => {
+    console.log(socket2.id); 
 
+})
+socket2.on('welcome', (msg) => {
+    console.log(msg);
+})
