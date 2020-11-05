@@ -30,7 +30,11 @@ app.use(express.static(publicDirectoryPath))
 
 //Chat server
 io.on('connection', (socket) => {
+  socket.on('connected', (msg) => {
+    io.emit('chat message', msg)
+  })
   socket.on('chat message', (msg) => {
+    io.emit('chat message', msg)
     console.log('message: ' + msg);
   })
   console.log('a user connected')
